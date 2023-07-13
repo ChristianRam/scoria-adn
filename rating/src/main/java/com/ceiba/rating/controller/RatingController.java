@@ -8,34 +8,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rating")
+@RequestMapping("/ratings")
 public class RatingController {
 
     @Autowired
     private RatingService ratingService;
 
     @PostMapping
-    public String addRating(@RequestBody Rating rating) {
-        return ratingService.add(rating);
+    public Rating createRating(@RequestBody Rating rating) {
+        return ratingService.createRating(rating);
     }
 
-    @PutMapping("/{id}")
-    public String updateRating(@PathVariable Long id, @RequestBody Rating book) {
-        return ratingService.update(id, book);
+    @PutMapping("/{ratingId}")
+    public Rating updateRating(@PathVariable Long ratingId, @RequestBody Rating rating) {
+        return ratingService.updateRating(ratingId, rating);
     }
 
     @GetMapping
-    public List<Rating> getAllRatings() {
-        return ratingService.getAll();
+    public List<Rating> findRatingsByBookId(
+            @RequestParam(required = false, defaultValue = "0") Long bookId) {
+        if (bookId.equals(0L)) {
+            return ratingService.findAllRatings();
+        }
+        return ratingService.findRatingsByBookId(bookId);
     }
 
-    @GetMapping("/book-id/{bookId}")
-    public List<Rating> getRatingsByBookId(@PathVariable Long bookId) {
-        return ratingService.getByBookId(bookId);
-    }
-
-    @DeleteMapping("/{id}")
-    public String deleteRating(@PathVariable Long id) {
-        return ratingService.delete(id);
+    @DeleteMapping("/{ratingId}")
+    public void deleteRating(@PathVariable Long ratingId) {
+        ratingService.deleteRating(ratingId);
     }
 }

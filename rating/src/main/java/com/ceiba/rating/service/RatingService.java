@@ -20,40 +20,40 @@ public class RatingService {
     ).collect(Collectors.toList());
 
 
-    public String add(Rating rating) {
+    public Rating createRating(Rating rating) {
         if (anyMatch(rating.getId())) {
-            return "Error: This rating already exist!";
+            return null;
         }
 
         this.ratings.add(rating);
-        return "Rating added sucessfully!";
+        return rating;
     }
 
-    public String update(Long id, Rating rating) {
+    public Rating updateRating(Long id, Rating rating) {
         if (!anyMatch(id)) {
-            return String.format("Rating with id %s does not exist", id);
+            return null;
         }
 
         int index = ratings.indexOf(getById(id));
         this.ratings.set(index, rating);
-        return String.format("Rating with id %s updated sucessfully", id);
+        return rating;
     }
 
-    public List<Rating> getAll() {
+    public List<Rating> findAllRatings() {
         return this.ratings;
     }
 
-    public List<Rating> getByBookId(Long bookId) {
-        return ratings.stream().filter(rating -> rating.getBookId() == bookId).collect(Collectors.toList());
+    public List<Rating> findRatingsByBookId(Long bookId) {
+        return ratings.stream().filter(rating -> rating.getBookId() == bookId)
+                .collect(Collectors.toList());
     }
 
-    public String delete(Long id) {
+    public void deleteRating(Long id) {
         if (!anyMatch(id)) {
-            return String.format("Rating with id %s does not exist", id);
+            return;
         }
 
         this.ratings.removeIf(rating -> rating.getId().equals(id));
-        return String.format("Rating with id %s deleted sucessfully", id);
     }
 
     private boolean anyMatch(Long id) {
@@ -62,6 +62,6 @@ public class RatingService {
 
     private Rating getById(Long id) {
         return ratings.stream().filter(rating -> rating.getId() == id)
-                .findFirst().orElse(new Rating());
+                .findFirst().get();
     }
 }

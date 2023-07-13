@@ -20,40 +20,39 @@ public class BookService {
     ).collect(Collectors.toList());
 
 
-    public String add(Book book) {
+    public Book createBook(Book book) {
         if (anyMatch(book.getId())) {
-            return "Error: This book already exist!";
+            return null;
         }
 
         this.books.add(book);
-        return "Book added sucessfully!";
+        return book;
     }
 
-    public String update(Long id, Book book) {
+    public Book updateBook(Long id, Book book) {
         if (!anyMatch(id)) {
-            return String.format("Book with id %s does not exist", id);
+            return null;
         }
 
-        int index = books.indexOf(getById(id));
+        int index = books.indexOf(getBookById(id));
         this.books.set(index, book);
-        return String.format("Book with id %s updated sucessfully", id);
+        return book;
     }
 
-    public List<Book> getAll() {
+    public List<Book> getAllBooks() {
         return this.books;
     }
 
-    public Book getById(Long id) {
-        return books.stream().filter(book -> book.getId() == id).findFirst().orElse(new Book());
+    public Book getBookById(Long id) {
+        return books.stream().filter(book -> book.getId() == id).findFirst().get();
     }
 
-    public String delete(Long id) {
+    public void deleteBook(Long id) {
         if (!anyMatch(id)) {
-            return String.format("Book with id %s does not exist", id);
+            return;
         }
 
         this.books.removeIf(book -> book.getId().equals(id));
-        return String.format("Book with id %s deleted sucessfully", id);
     }
 
     private boolean anyMatch(Long id) {
