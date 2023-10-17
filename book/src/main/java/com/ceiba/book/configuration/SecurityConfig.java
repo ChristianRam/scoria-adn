@@ -1,36 +1,42 @@
 package com.ceiba.book.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
-@EnableWebSecurity
-@Configuration
-public class SecurityConfig {
 
-    @Autowired
-    public void registerAuthProvider(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication();
-    }
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(jsr250Enabled = true)
+public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http.authorizeHttpRequests((auth) -> auth.antMatchers(HttpMethod.GET, "/books")
+        http
+                .authorizeHttpRequests((auth) -> auth.antMatchers(HttpMethod.GET, "/books")
                         .permitAll()
                         .antMatchers(HttpMethod.GET, "/books/*")
-                        .permitAll()
+                        .hasRole("user")
                         .antMatchers(HttpMethod.POST, "/books")
-                        .hasRole("ADMIN")
+                        .hasRole("admin")
                         .antMatchers(HttpMethod.DELETE, "/books/*")
-                        .hasRole("ADMIN"))
-                .csrf()
-                .disable()
-                .build();
+                        .hasRole("admin"))
+                .oauth2ResourceServer().jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()));
+
+        return http.build();
+    }
+
+    private Converter<Jwt, ? extends AbstractAuthenticationToken> jwtAuthenticationConverter() {
+        JwtAuthenticationConverter jwtConverter = new JwtAuthenticationConverter();
+        jwtConverter.setJwtGrantedAuthoritiesConverter(new RealmRoleConverter());
+        return jwtConverter;
     }
 }

@@ -1,6 +1,7 @@
 package com.ceiba.book.service;
 
 import com.ceiba.book.model.Book;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -39,6 +40,7 @@ public class BookService {
         return book;
     }
 
+    @Cacheable("getAllBooks")
     public List<Book> getAllBooks() {
         return this.books;
     }

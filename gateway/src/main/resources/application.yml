@@ -1,0 +1,32 @@
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        - TokenRelay
+      routes:
+        - id: book-service
+          uri: lb://book-service
+          predicates:
+            - Path=/book-service/**
+        - id: rating-service
+          uri: lb://rating-service
+          predicates:
+            - Path=/rating-service/**
+        - id: library-service
+          uri: lb://library-service
+          predicates:
+            - Path=/library-service/**
+  security:
+    oauth2:
+      client:
+        provider:
+          my-keycloak-provider:
+            issuer-uri: http://localhost:8080/realms/oauth
+        registration:
+          keycloak-spring-gateway-client:
+            provider: my-keycloak-provider
+            scope: openid
+            client-id: oauth-rest-api
+            client-secret: b4inLFwyXprbVApBfXNVzQKqPje1Shpr
+            authorization-grant-type: authorization_code
+            redirect-uri: '{baseUrl}/login/oauth2/code/keycloak'

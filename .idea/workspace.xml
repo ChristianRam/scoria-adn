@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="3c85fd9d-30ab-4ea2-adef-4ba8b471b17d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/book/src/main/java/com/ceiba/book/configuration/RealmRoleConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/book/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discovery/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway/src/main/java/com/ceiba/gateway/filter/SessionSavingPreFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway/src/main/resources/static/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway/src/main/resources/static/logout.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway/src/test/java/com/ceiba/gateway/GatewayApplicationLiveTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rating/src/main/java/com/ceiba/rating/configuration/CookieConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/book/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/book/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/book/src/main/java/com/ceiba/book/configuration/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/book/src/main/java/com/ceiba/book/configuration/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/book/src/main/java/com/ceiba/book/configuration/SessionConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/book/src/main/java/com/ceiba/book/configuration/SessionConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/book/src/main/java/com/ceiba/book/controller/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/book/src/main/java/com/ceiba/book/controller/BookController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/book/src/main/resources/bootstrap.properties" beforeDir="false" afterPath="$PROJECT_DIR$/book/src/main/resources/bootstrap.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discovery/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/discovery/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discovery/src/main/java/com/ceiba/discovery/SessionConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/ceiba/gateway/GatewayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/ceiba/gateway/GatewayApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/ceiba/gateway/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/ceiba/gateway/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/ceiba/gateway/SessionConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/ceiba/gateway/SessionConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rating/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/rating/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rating/src/main/java/com/ceiba/rating/configuration/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/rating/src/main/java/com/ceiba/rating/configuration/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rating/src/main/java/com/ceiba/rating/configuration/SessionConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/rating/src/main/java/com/ceiba/rating/configuration/SessionConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rating/src/main/resources/bootstrap.properties" beforeDir="false" afterPath="$PROJECT_DIR$/rating/src/main/resources/bootstrap.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2WEa90kVIMN49NTrNA9ZNZbhQHq" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/projects/scotiabank/book"
+  }
+}]]></component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="Application" />
+      </set>
+    </option>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3c85fd9d-30ab-4ea2-adef-4ba8b471b17d" name="Changes" comment="" />
+      <created>1696300037868</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1696300037868</updated>
+    </task>
+    <servers />
+  </component>
+</project>

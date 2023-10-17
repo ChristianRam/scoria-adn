@@ -1,4 +1,4 @@
-package com.ceiba.rating.configuration;
+package com.ceiba.library.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,16 +21,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((auth) -> auth.regexMatchers("^/ratings\\?bookId.*$")
-                        .hasRole("user")
-                        .antMatchers(HttpMethod.POST, "/ratings")
-                        .authenticated()
-                        .antMatchers(HttpMethod.DELETE, "/ratings/*")
-                        .hasRole("admin")
-                        .antMatchers(HttpMethod.GET, "/ratings")
-                        .hasRole("admin")
-                        .anyRequest()
-                        .authenticated())
+                .authorizeHttpRequests((auth) -> auth.anyRequest().authenticated())
                 .oauth2ResourceServer().jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()));
 
         return http.build();

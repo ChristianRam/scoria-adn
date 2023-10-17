@@ -2,6 +2,7 @@ package com.ceiba.rating.service;
 
 import com.ceiba.rating.model.Rating;
 import com.ceiba.rating.model.Stars;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,6 +40,7 @@ public class RatingService {
         return rating;
     }
 
+    @Cacheable("getAllRatings")
     public List<Rating> findAllRatings() {
         return this.ratings;
     }

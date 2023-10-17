@@ -1,53 +1,44 @@
 package com.ceiba.gateway;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
-import org.springframework.security.core.userdetails.MapReactiveUserDetailsService;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.oidc.web.server.logout.OidcClientInitiatedServerLogoutSuccessHandler;
+import org.springframework.security.oauth2.client.registration.ReactiveClientRegistrationRepository;
 import org.springframework.security.web.server.SecurityWebFilterChain;
-import org.springframework.security.web.server.authentication.RedirectServerAuthenticationSuccessHandler;
+import org.springframework.security.web.server.authentication.logout.ServerLogoutSuccessHandler;
 
-@EnableWebFluxSecurity
 @Configuration
 public class SecurityConfig {
 
     @Bean
-    public MapReactiveUserDetailsService userDetailsService() {
-        UserDetails user = User.withUsername("user")
-                .password(passwordEncoder().encode("password"))
-                .roles("USER")
-                .build();
-        UserDetails adminUser = User.withUsername("admin")
-                .password(passwordEncoder().encode("admin"))
-                .roles("ADMIN")
-                .build();
-        return new MapReactiveUserDetailsService(user, adminUser);
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-        http.formLogin()
-                .authenticationSuccessHandler(new RedirectServerAuthenticationSuccessHandler("/home/index.html"))
+    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http, ServerLogoutSuccessHandler handler) {
+        http
+                .authorizeExchange()
+                .pathMatchers(HttpMethod.GET, "/actuator/**", "/", "/logout.html", "/book-service/books")
+                .permitAll()
                 .and()
                 .authorizeExchange()
-                .pathMatchers("/book-service/**", "/rating-service/**", "/login*", "/").permitAll()
-                .pathMatchers("/eureka/**").hasRole("ADMIN")
-                .anyExchange().authenticated()
-                .and().logout()
-                .and().csrf().disable()
-                .httpBasic(withDefaults());
+                .anyExchange()
+                .authenticated()
+                .and()
+                .oauth2Login() // to redirect to oauth2 login page.
+                .and()
+                .logout()
+                .logoutSuccessHandler(handler);
+
         return http.build();
+    }
+
+    @Bean
+    public ServerLogoutSuccessHandler keycloakLogoutSuccessHandler(ReactiveClientRegistrationRepository repository) {
+
+        OidcClientInitiatedServerLogoutSuccessHandler oidcLogoutSuccessHandler =
+                new OidcClientInitiatedServerLogoutSuccessHandler(repository);
+
+        oidcLogoutSuccessHandler.setPostLogoutRedirectUri("{baseUrl}/logout.html");
+
+        return oidcLogoutSuccessHandler;
     }
 }
