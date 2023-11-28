@@ -1,5 +1,7 @@
 package com.ceiba.rating.service;
 
+import com.ceiba.rating.exceptions.AlreadyExistException;
+import com.ceiba.rating.exceptions.NotFoundException;
 import com.ceiba.rating.model.Rating;
 import com.ceiba.rating.model.Stars;
 import org.springframework.cache.annotation.Cacheable;
@@ -20,10 +22,9 @@ public class RatingService {
             new Rating(5L, 3L, Stars.TWO)
     ).collect(Collectors.toList());
 
-
     public Rating createRating(Rating rating) {
         if (anyMatch(rating.getId())) {
-            return null;
+            throw new AlreadyExistException(String.format("Rating with ID %s already exist", rating.getId()));
         }
 
         this.ratings.add(rating);
@@ -32,7 +33,7 @@ public class RatingService {
 
     public Rating updateRating(Long id, Rating rating) {
         if (!anyMatch(id)) {
-            return null;
+            throw new NotFoundException(String.format("Rating with ID %s not found", id));
         }
 
         int index = ratings.indexOf(getById(id));
@@ -52,7 +53,7 @@ public class RatingService {
 
     public void deleteRating(Long id) {
         if (!anyMatch(id)) {
-            return;
+            throw new NotFoundException(String.format("Rating with ID %s not found", id));
         }
 
         this.ratings.removeIf(rating -> rating.getId().equals(id));

@@ -3,6 +3,8 @@ package com.ceiba.rating.controller;
 import com.ceiba.rating.model.Rating;
 import com.ceiba.rating.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,26 +17,32 @@ public class RatingController {
     private RatingService ratingService;
 
     @PostMapping
-    public Rating createRating(@RequestBody Rating rating) {
-        return ratingService.createRating(rating);
+    public ResponseEntity<Rating> createRating(@RequestBody Rating rating) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(ratingService.createRating(rating));
     }
 
     @PutMapping("/{ratingId}")
-    public Rating updateRating(@PathVariable Long ratingId, @RequestBody Rating rating) {
-        return ratingService.updateRating(ratingId, rating);
+    public ResponseEntity<Rating> updateRating(@PathVariable Long ratingId, @RequestBody Rating rating) {
+        return ResponseEntity.ok(ratingService.updateRating(ratingId, rating));
     }
 
     @GetMapping
-    public List<Rating> findRatingsByBookId(
+    public ResponseEntity<List<Rating>> findRatingsByBookId(
             @RequestParam(required = false, defaultValue = "0") Long bookId) {
+        List<Rating> ratings;
+
         if (bookId.equals(0L)) {
-            return ratingService.findAllRatings();
+            ratings = ratingService.findAllRatings();
+        } else {
+            ratings = ratingService.findRatingsByBookId(bookId);
         }
-        return ratingService.findRatingsByBookId(bookId);
+
+        return ResponseEntity.ok(ratings);
     }
 
     @DeleteMapping("/{ratingId}")
-    public void deleteRating(@PathVariable Long ratingId) {
+    public ResponseEntity<?> deleteRating(@PathVariable Long ratingId) {
         ratingService.deleteRating(ratingId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 }

@@ -8,7 +8,7 @@ group = 'com.ceiba'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '1.8'
+	sourceCompatibility = '11'
 }
 
 configurations {
@@ -34,9 +34,21 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 	implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
-	compileOnly 'org.projectlombok:lombok'
+	implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
+	implementation 'org.springframework.cloud:spring-cloud-sleuth-zipkin'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	annotationProcessor 'org.projectlombok:lombok'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	// Lombok
+	compileOnly 'org.projectlombok:lombok:1.18.24'
+	annotationProcessor 'org.projectlombok:lombok:1.18.24'
+	//testcontainers
+	testImplementation 'com.github.dasniko:testcontainers-keycloak:2.4.0'
+	testImplementation 'org.testcontainers:testcontainers:1.17.6'
+	testImplementation 'org.testcontainers:junit-jupiter:1.18.0'
+	testImplementation 'io.rest-assured:rest-assured'
+
+	testCompileOnly 'org.projectlombok:lombok:1.18.24'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 }

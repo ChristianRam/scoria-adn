@@ -1,11 +1,3 @@
-spring:
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: http://localhost:8080/realms/oauth/protocol/openid-connect/certs
-
-
 resilience4j:
   circuitbreaker:
     configs:

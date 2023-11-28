@@ -1,5 +1,7 @@
 package com.ceiba.book.service;
 
+import com.ceiba.book.exceptions.AlreadyExistException;
+import com.ceiba.book.exceptions.NotFoundException;
 import com.ceiba.book.model.Book;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -23,7 +25,7 @@ public class BookService {
 
     public Book createBook(Book book) {
         if (anyMatch(book.getId())) {
-            return null;
+            throw new AlreadyExistException(String.format("Book with ID %s already exist", book.getId()));
         }
 
         this.books.add(book);
@@ -32,7 +34,7 @@ public class BookService {
 
     public Book updateBook(Long id, Book book) {
         if (!anyMatch(id)) {
-            return null;
+            throw new NotFoundException(String.format("Book with ID %s not found", id));
         }
 
         int index = books.indexOf(getBookById(id));
@@ -51,7 +53,7 @@ public class BookService {
 
     public void deleteBook(Long id) {
         if (!anyMatch(id)) {
-            return;
+            throw new NotFoundException(String.format("Book with ID %s not found", id));
         }
 
         this.books.removeIf(book -> book.getId().equals(id));
